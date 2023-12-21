@@ -1,0 +1,102 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b34c46b6d845264f99d81e8dc7c74e1, type: 3}
+  m_Name: GoalsDB
+  m_EditorClassIdentifier: 
+  GoalInfos:
+  - goals:
+    - id: id_0_0
+      goalType: 0
+      chipType: 1
+      itemColor: 103
+      collectCount: 5
+    - id: id_0_1
+      goalType: 0
+      chipType: 0
+      itemColor: 103
+      collectCount: 5
+    rewards:
+    - RewardType: 0
+      rewardCount: 50
+  - goals:
+    - id: id_1_0
+      goalType: 0
+      chipType: 0
+      itemColor: 103
+      collectCount: 77
+    rewards:
+    - RewardType: 2
+      rewardCount: 10
+    - RewardType: 1
+      rewardCount: 10
+  - goals:
+    - id: id_2_0
+      goalType: 0
+      chipType: 0
+      itemColor: 1
+      collectCount: 50
+    - id: id_2_1
+      goalType: 0
+      chipType: 0
+      itemColor: 0
+      collectCount: 50
+    rewards:
+    - RewardType: 0
+      rewardCount: 10
+  - goals:
+    - id: id_3_0
+      goalType: 0
+      chipType: 0
+      itemColor: 2
+      collectCount: 50
+    - id: id_3_1
+      goalType: 0
+      chipType: 0
+      itemColor: 0
+      collectCount: 50
+    rewards:
+    - RewardType: 0
+      rewardCount: 25
+    - RewardType: 1
+      rewardCount: 5
+  - goals:
+    - id: id_4_0
+      goalType: 0
+      chipType: 0
+      itemColor: 4
+      collectCount: 50
+    - id: id_4_1
+      goalType: 0
+      chipType: 0
+      itemColor: 3
+      collectCount: 50
+    rewards:
+    - RewardType: 0
+      rewardCount: 25
+    - RewardType: 1
+      rewardCount: 5
+  - goals:
+    - id: id_5_0
+      goalType: 0
+      chipType: 3
+      itemColor: 103
+      collectCount: 5
+    - id: id_5_1
+      goalType: 0
+      chipType: 4
+      itemColor: 103
+      collectCount: 5
+    rewards:
+    - RewardType: 2
+      rewardCount: 25
+    - RewardType: 1
+      rewardCount: 10
