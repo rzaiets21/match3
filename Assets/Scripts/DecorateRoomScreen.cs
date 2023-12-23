@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using Extensions;
 using ITSoft;
 using TMPro;
@@ -1685,6 +1686,10 @@ public class DecorateRoomScreen : UILayer, Match3GameListener
 		//
 		//currentStage.CompleteStage();
 		var initParams = currentStage.GetInitParams(this);
+		var minStarsCost = uiVisualItems.Where(x => !x.visualObjectBehaviour.visualObject.isOwned)
+			.Min(x => x.visualObjectBehaviour.visualObject.sceneObjectInfo.price.cost);
+		initParams.minStarsCost = minStarsCost;
+		//Debug.LogError(minStarsCost);
 		object2.Show(initParams);
 		GGSoundSystem.Play(GGSoundSystem.MusicType.GameMusic);
 	}

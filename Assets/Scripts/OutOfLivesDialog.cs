@@ -6,6 +6,8 @@ using System.Diagnostics;
 using ITSoft;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
+using Debug = UnityEngine.Debug;
 
 public class OutOfLivesDialog : MonoBehaviour
 {
@@ -85,6 +87,8 @@ public class OutOfLivesDialog : MonoBehaviour
 				_003C_003E1__state = 1;
 				return true;
 			}
+
+			outOfLivesDialog.rewardAdButton.interactable = AdsManager.RewardIsReady();
 			outOfLivesDialog.UpdateState();
 			outOfLivesDialog.UpdateVisuals();
 			_003C_003E2__current = null;
@@ -116,6 +120,9 @@ public class OutOfLivesDialog : MonoBehaviour
 
 	[SerializeField]
 	private TextMeshProUGUI coinsLabel;
+	
+	[SerializeField]
+	private Button rewardAdButton;
 
 	[SerializeField]
 	private string priceFormat;
@@ -159,6 +166,11 @@ public class OutOfLivesDialog : MonoBehaviour
 		GGSoundSystem.Play(GGSoundSystem.SFXType.FlyIn);
 	}
 
+	private void Awake()
+	{
+		AdsManager.OnCompleteRewardVideo += RewardedCallBack;
+	}
+
 	public void Init()
 	{
 		initState.lives = BehaviourSingleton<EnergyManager>.instance.ownedPlayCoins;
@@ -180,20 +192,26 @@ public class OutOfLivesDialog : MonoBehaviour
 	public void OnEnable()
 	{
 		Init();
-		AdsManager.OnCompleteRewardVideo += RewardedCallBack;
 	}
 
 	public void OnDisable()
 	{
 		updateLivesEnum = null;
+	}
+
+	private void OnDestroy()
+	{
 		AdsManager.OnCompleteRewardVideo -= RewardedCallBack;
 	}
 
 	public void UpdateVisuals()
 	{
+		if(!onFocus)
+			return;
+		
 		long price = GGPlayerSettings.instance.walletManager.CurrencyCount(CurrencyType.coins);
 		coinsLabel.text = GGFormat.FormatPrice(price);
-		SingleCurrencyPrice priceForLives = priceConfig.GetPriceForLives(maxLives - currentState.lives);
+		SingleCurrencyPrice priceForLives = priceConfig.GetPriceForLives(maxLives);
 		priceLabel.text = string.Format(priceFormat, priceForLives.cost);
 		livesCountLabel.text = currentState.lives.ToString();
 		timeCountLabel.text = GGFormat.FormatTimeSpan(TimeSpan.FromSeconds(currentState.secsToNextLife));
@@ -279,11 +297,6 @@ public class OutOfLivesDialog : MonoBehaviour
 		}
 		
 		BehaviourSingleton<EnergyManager>.instance.AddEnergy();
-		if (currentState.lives == 4)
-		{
-			Hide();
-			return;
-		}
 
 		UpdateState();
 		UpdateVisuals();
@@ -299,5 +312,15 @@ public class OutOfLivesDialog : MonoBehaviour
 		}
 		
 		AdsManager.ShowRewarded();
+	}
+
+	private bool onFocus = true;
+
+	private void OnApplicationFocus(bool hasFocus)
+	{
+		Debug.LogError($"Has focus - {hasFocus}");
+		onFocus = hasFocus;
+		if(hasFocus)
+			UpdateVisuals();
 	}
 }

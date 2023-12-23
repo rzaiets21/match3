@@ -210,6 +210,8 @@ public class DecorateRoomSceneVisualItem : MonoBehaviour
 
 	private List<Vector2> pointsCachedList = new List<Vector2>();
 
+	public bool IsActive => buyButtonContanier.gameObject.activeSelf;
+
 	public Settings settings => Match3Settings.instance.visualItemAnimationSettings;
 
 	public void Init(VisualObjectBehaviour visualObjectBehaviour, DecorateRoomScreen screen, int index, float delay)

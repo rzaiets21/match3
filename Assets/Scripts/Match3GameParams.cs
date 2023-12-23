@@ -37,6 +37,8 @@ public class Match3GameParams
 
 	public bool disableBackground;
 
+	public int minStarsCost;
+
 	public int BoughtBoosterCount(BoosterType boosterType)
 	{
 		List<BoosterConfig> list = boughtBoosters;

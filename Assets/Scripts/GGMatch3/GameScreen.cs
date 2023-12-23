@@ -649,17 +649,6 @@ namespace GGMatch3
 
 		public bool IsInitialized { get; private set; }
 
-		private void OnEnable()
-		{
-			var hasStars = GGPlayerSettings.instance.walletManager.CurrencyCount(CurrencyType.diamonds) > 0;
-			dot.SetActive(hasStars);
-			if (hasStars)
-			{
-				Debug.LogError("Show tutorial hand");
-				tutorialHandController.Show(initArguments);
-			}
-		}
-
 		private bool isStarterLoaded
 		{
 			get
@@ -758,6 +747,15 @@ namespace GGMatch3
 				initParams.levelsList[i] = level;
 			}
 			this.initParams = initParams;
+			
+			var hasStars = GGPlayerSettings.instance.walletManager.CurrencyCount(CurrencyType.diamonds) > this.initParams.minStarsCost;
+			dot.SetActive(hasStars);
+			if (hasStars)
+			{
+				Debug.LogError("Show tutorial hand");
+				tutorialHandController.Show(initArguments);
+			}
+			
 			GGSoundSystem.Play(GGSoundSystem.MusicType.GameMusic);
 			NavigationManager.instance.Push(base.gameObject);
 			if (initParams == null)
@@ -1114,10 +1112,12 @@ namespace GGMatch3
 
 			winScreenAnimation = false;
 			
-			dot.SetActive(true);
-			if (!tutorialHandController.Shown)
+			var hasStars = GGPlayerSettings.instance.walletManager.CurrencyCount(CurrencyType.diamonds) > this.initParams.minStarsCost;
+			dot.SetActive(hasStars);
+			if (hasStars)
 			{
-				tutorialHandController.Show(this.initArguments);
+				Debug.LogError("Show tutorial hand");
+				tutorialHandController.Show(initArguments);
 			}
 		}
 		
